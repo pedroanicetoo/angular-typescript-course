@@ -52,9 +52,22 @@ export class OfertasService {
 			]
 		}
 	]
-	public getOfertas(): Array<oferta> {
-			
+	public getOfertas(): Oferta[] {
 			return this.ofertas;
 	}
 
+	public getOfertas2(): Promise<Oferta[]> {
+		return new Promise((resolve, reject) => {
+			//Algum tipo de processamento que ao finalizar, chama a função
+			//resolve ou reject
+			let deu_certo = false
+			if(deu_certo){
+				resolve(this.ofertas);
+			} else {
+        reject({codigo_erro: 404, mensagem_erro: 'Servidor não encontrado'})
+      }
+
+			
+		});
+	}
 }
