@@ -22,13 +22,7 @@ export class HomeComponent implements OnInit {
     this.ofertasService.getOfertas()
     .then(
     (ofertas: Array<Oferta>) => { 
-      // console.log('a função resolve() foi resolvida depois de 3 segundos')
       this.ofertas = ofertas 
-    })
-    .catch( 
-      ( param: any) => { 
-      console.log(param)
-      this.mensagem_erro = param.mensagem_erro;
     })
   }
 
