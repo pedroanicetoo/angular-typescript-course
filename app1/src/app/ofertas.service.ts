@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core'
 import { Oferta } from './shared/oferta.model'
 import { HttpClient} from '@angular/common/http';
 import { URL_API } from './app.api';
+import { Observable, interval, observable, Subject, pipe, Observer } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import 'rxjs-compat';
 
 @Injectable()
 
@@ -41,4 +45,8 @@ export class OfertasService {
         .then(( resposta:any ) => resposta[0].descricao)
     }
 
+    public pesquisaOfertas(termo: string): Observable<Array<Oferta>> {
+        return this.http.get(`${URL_API}ofertas?descricao_oferta_like=${termo}`)
+            .map((resposta: any) => resposta)
+    }
 }
