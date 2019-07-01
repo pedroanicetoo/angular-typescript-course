@@ -13,7 +13,6 @@ import { Subject } from 'rxjs';
 export class TopoComponent implements OnInit {
 
  public ofertas: Observable<Array<Oferta>>;
- public ofertas2: Array<Oferta>;
  private subjectPesquisa: Subject<string>  = new Subject
 
 
@@ -21,7 +20,7 @@ export class TopoComponent implements OnInit {
 
   ngOnInit() {
     this.ofertas = this.subjectPesquisa // retorna Oferta[]
-      .debounceTime(1000)//executa a ação do sitchMap após 1s
+      // .debounceTime(1000)//executa a ação do sitchMap após 1s
       .distinctUntilChanged() // executa ação somente se a requisição for diferente
       .switchMap((termo: string) => {
           console.log('requisição http para a api')
@@ -35,10 +34,6 @@ export class TopoComponent implements OnInit {
       .catch( (err: any) => {
         console.log(err);
         return Observable.of<Oferta[]>([])
-      })
-      this.ofertas.subscribe((ofertas: Oferta[]) => {
-        this.ofertas2 = ofertas
-        console.log(ofertas)
       })
   }
 
@@ -57,6 +52,9 @@ export class TopoComponent implements OnInit {
     //   (erro:any) => console.log('ERRO STATUS: '+ erro.status),
     //   () => console.log('Fluxo de Eventos Completos')
     // )
+  }
+  public limpaPesquisa():void {
+    this.subjectPesquisa.next('')
   }
 
 }
