@@ -14,7 +14,9 @@ import { DiversaoComponent } from './diversao/diversao.component';
 import { OfertaComponent } from './oferta/oferta.component';
 import { ComoUsarComponent } from './oferta/como-usar/como-usar.component';
 import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 //pipe implementados
 import { DescricaoReduzida } from './util/descricao-reduzida.pipe';
@@ -46,7 +48,8 @@ registerLocaleData(localePt);
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,
+    // FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [

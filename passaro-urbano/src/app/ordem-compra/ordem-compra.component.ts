@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OrdemCompraService } from '../ordem-compra.service'
 import { Pedido } from '../shared/pedido.model'
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ordem-compra',
@@ -11,11 +11,14 @@ import { NgForm } from '@angular/forms';
 })
 export class OrdemCompraComponent implements OnInit {
 
-  
+  public idPedidoCompra: number
 
-  @ViewChild('formulario') public f: NgForm
-
-  public IdPedidoCompra: number
+  public formulario: FormGroup = new FormGroup({
+    'endereco': new FormControl(null, [ Validators.required, Validators.minLength(3), Validators.maxLength(120) ]),
+    'numero': new FormControl(null, [ Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(1), Validators.maxLength(20) ]),
+    'complemento': new FormControl(null),
+    'formaPagamento': new FormControl(null, Validators.required)
+  })
 
   constructor(private ordemCompraService: OrdemCompraService) { }
 
@@ -24,19 +27,28 @@ export class OrdemCompraComponent implements OnInit {
   }
 
   public confirmarCompra(): void {
-    
-    console.log(this.f.value);
-    let pedido: Pedido = new Pedido(
-      this.f.value.endereco, 
-      this.f.value.numero,
-      this.f.value.complemento,
-      this.f.value.formaPagamento
+    if (this.formulario.status === 'INVALID') {
+      console.log('formulario invalido');
+      this.formulario.get('endereco').markAsTouched()
+      this.formulario.get('numero').markAsTouched()
+      this.formulario.get('complemento').markAsTouched()
+      this.formulario.get('formaPagamento').markAsTouched()
+    } else {
+
+      let pedido : Pedido = new Pedido(
+        this.formulario.value.endereco,
+        this.formulario.value.numero,
+        this.formulario.value.complemento,
+        this.formulario.value.formaPagamento       
       )
-    
-    this.ordemCompraService.efetivarCompra(pedido)
-      .subscribe((idPedido:number) => {
-        this.IdPedidoCompra = idPedido
-        console.log('Pedido cadastrado com sucesso! ID do Pedido: '+ idPedido)
-      })
+      
+      this.ordemCompraService.efetivarCompra(pedido)
+        .subscribe((idPedido: number) => {
+          this.idPedidoCompra = idPedido;
+          console.log(this.idPedidoCompra);
+        })
+
+      console.log('formulario valido');
+    }
   }
- }
+}

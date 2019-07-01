@@ -234,6 +234,27 @@
       "complemento": "AAAAAAAAAAAAAAAAAAAAAAA",
       "formaPagamento": "dinheiro",
       "id": 7
+    },
+    {
+      "endereco": "Rua 10 teste",
+      "numero": "1231",
+      "complemento": "5165156156",
+      "formaPagamento": "debito",
+      "id": 8
+    },
+    {
+      "endereco": "wqfqrsfa",
+      "numero": "21412",
+      "complemento": "saasfas",
+      "formaPagamento": "dinheiro",
+      "id": 9
+    },
+    {
+      "endereco": "fsafsafas",
+      "numero": "24312",
+      "complemento": "saasffsaasf",
+      "formaPagamento": "debito",
+      "id": 10
     }
   ]
 }
